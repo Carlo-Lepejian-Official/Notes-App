@@ -8,6 +8,8 @@ const PORT = process.env.PORT;
 
 connectDB();
 
+app.use(express.json());
+
 app.use("/api/notes", notesRouter);
 
 app.listen(PORT, () => {
