@@ -7,13 +7,16 @@ import rateLimiter from "./middleware/rateLimiter.js";
 const app = express();
 const PORT = process.env.PORT;
 
-connectDB();
-
 app.use(express.json());
 app.use(rateLimiter)
 
 app.use("/api/notes", notesRouter);
 
-app.listen(PORT, () => {
-  console.log("Listening on: http://localhost:5001/");
-});
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("Listening on: http://localhost:5001/");
+  });
+}).catch((error) => {
+  console.error("Couldn't connect to database: ", error)
+})
+
