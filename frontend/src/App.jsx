@@ -6,9 +6,9 @@ import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   return (
-    <div>
+    <div data-theme="sunset">
       <Toaster />
-      <button onClick={() => toast.error("Fail!")}>Click me</button>
+      <button className="btn btn-primary">Click me!</button>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/create" element={<CreatePage />} />
