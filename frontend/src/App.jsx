@@ -8,7 +8,6 @@ function App() {
   return (
     <div data-theme="sunset">
       <Toaster />
-      <button className="btn btn-primary">Click me!</button>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/create" element={<CreatePage />} />
