@@ -28,8 +28,42 @@ function NoteDetailPage() {
     fetchNote();
   }, [id]);
 
-  const handleDelete = () => {};
-  const handleSave = () => {};
+  const handleDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete this note?")) return;
+
+    try {
+      await api.delete(`/notes/${id}`);
+      toast.success("Successfully deleted note!");
+      navigate("/");
+    } catch (error) {
+      toast.error("Couldn't delete note, please try again later.");
+      console.error("Error in handleDelete(): ", error);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!note.title.trim() || !note.content.trim()) {
+      toast.error("All fields are required..");
+      return;
+    }
+
+    setSaving(true);
+
+    try {
+      await api.put(`/notes/${id}`, {
+        title: note.title,
+        content: note.content,
+      });
+
+      toast.success("Successfully edited note!");
+      navigate("/");
+    } catch (error) {
+      toast.error("Couldn't edit note, please try again...");
+      console.error("Error in handleSave(): ", error);
+    } finally {
+      setSaving(false);
+    }
+  };
 
   if (loading) {
     return (
